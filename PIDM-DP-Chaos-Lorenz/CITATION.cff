@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "PIDM-DP: Physics-Informed Diffusion Model (Dormand-Prince Edition)"
+type: software
+authors:
+  - family-names: Dabral
+    given-names: Shailendra
+date-released: 2026-10-15
+license: MIT
+repository-code: "https://github.com/OWNER/pidm-dp-lorenz63"
+keywords:
+  - diffusion models
+  - physics-informed machine learning
+  - chaotic systems
+  - Lorenz-63
+  - data assimilation
