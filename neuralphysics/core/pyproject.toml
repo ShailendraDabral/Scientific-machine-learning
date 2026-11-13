@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "neuralphysics"
+version = "0.1.0"
+description = "Physics-informed neural networks and neural operators with classical reference solvers"
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.24", "scipy>=1.10", "torch>=2.1"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[project.scripts]
+neuralphysics = "neuralphysics.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["neuralphysics*"]
+
+[tool.pytest.ini_options]
+markers = ["slow: trains a network (deselect with -m 'not slow')"]

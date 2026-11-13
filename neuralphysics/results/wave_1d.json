@@ -1,0 +1,124 @@
+{
+  "problem": "wave_1d",
+  "title": "1D wave equation",
+  "params": {
+    "c": 1.0,
+    "t_final": 1.0,
+    "k1": 1,
+    "a1": 1.0,
+    "k2": 2,
+    "a2": 0.5,
+    "v_amplitude": 0.0
+  },
+  "config": {
+    "hidden_layers": 4,
+    "neurons": 64,
+    "activation": "tanh",
+    "learning_rate": 0.001,
+    "epochs": 3000,
+    "lbfgs_iterations": 1500,
+    "n_collocation": 6000,
+    "n_boundary": 400,
+    "n_initial": 400,
+    "w_pde": 1.0,
+    "w_boundary": 10.0,
+    "w_initial": 10.0,
+    "lr_decay": 0.9,
+    "seed": 0,
+    "dtype": "float64",
+    "log_every": 25,
+    "snapshot_every": 200
+  },
+  "grid_shape": [
+    101,
+    101
+  ],
+  "solutions": {
+    "analytical": {
+      "method": "Standing-wave superposition (closed form)",
+      "seconds": 0.002
+    },
+    "numerical": {
+      "method": "Explicit leapfrog central differences (dx = 1/1000, Courant number <= 0.5)",
+      "seconds": 0.02
+    },
+    "learned": {
+      "method": "PINN, MLP 4x64 tanh, Adam 3000 + L-BFGS 1500, 6000 collocation points, float64",
+      "seconds": 479.35
+    }
+  },
+  "n_parameters": 12737,
+  "stopped_early": false,
+  "final_losses": {
+    "pde": 0.0001686942868780683,
+    "boundary": 6.644585546199922e-06,
+    "initial": 1.4513346980243709e-06,
+    "initial_velocity": 1.0391785538371614e-05,
+    "total": 0.0003535713447040274
+  },
+  "metrics": {
+    "analytical": {
+      "conditions": {
+        "boundary": {
+          "rms": 8.702324084464121e-17,
+          "max": 2.4492935982947064e-16
+        },
+        "initial": {
+          "rms": 0.0,
+          "max": 0.0
+        }
+      },
+      "pde_residual": {
+        "rms": 1.1875619830617616e-15,
+        "max": 7.105427357601002e-15
+      }
+    },
+    "numerical": {
+      "conditions": {
+        "boundary": {
+          "rms": 0.0,
+          "max": 0.0
+        },
+        "initial": {
+          "rms": 0.0,
+          "max": 0.0
+        }
+      },
+      "error_vs_analytical": {
+        "rel_l2": 1.9965435461423893e-06,
+        "rmse": 1.1160470654545557e-06,
+        "max_abs": 3.314889743699645e-06
+      }
+    },
+    "learned": {
+      "pde_residual": {
+        "rms": 0.014372081989662576,
+        "max": 0.10774892711270567
+      },
+      "conditions": {
+        "boundary": {
+          "rms": 0.0029142216654783285,
+          "max": 0.01656265079850696
+        },
+        "initial": {
+          "rms": 0.001223284597099229,
+          "max": 0.003410461051061152
+        },
+        "initial_velocity": {
+          "rms": 0.0036114615569040223,
+          "max": 0.0175797352159659
+        }
+      },
+      "error_vs_numerical": {
+        "rel_l2": 0.003745383604664032,
+        "rmse": 0.002093629952994013,
+        "max_abs": 0.01656265079850696
+      },
+      "error_vs_analytical": {
+        "rel_l2": 0.003745622675747519,
+        "rmse": 0.002093764097279514,
+        "max_abs": 0.01656265079850696
+      }
+    }
+  }
+}

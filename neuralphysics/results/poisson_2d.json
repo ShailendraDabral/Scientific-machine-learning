@@ -1,0 +1,103 @@
+{
+  "problem": "poisson_2d",
+  "title": "Poisson equation",
+  "params": {
+    "mode_m": 1,
+    "mode_n": 1,
+    "amplitude": 1.0,
+    "boundary_amplitude": 0.0
+  },
+  "config": {
+    "hidden_layers": 4,
+    "neurons": 32,
+    "activation": "tanh",
+    "learning_rate": 0.001,
+    "epochs": 1500,
+    "lbfgs_iterations": 500,
+    "n_collocation": 4000,
+    "n_boundary": 800,
+    "n_initial": 400,
+    "w_pde": 1.0,
+    "w_boundary": 10.0,
+    "w_initial": 10.0,
+    "lr_decay": 0.9,
+    "seed": 0,
+    "dtype": "float64",
+    "log_every": 25,
+    "snapshot_every": 200
+  },
+  "grid_shape": [
+    81,
+    81
+  ],
+  "solutions": {
+    "analytical": {
+      "method": "Manufactured solution (closed form)",
+      "seconds": 0.002
+    },
+    "numerical": {
+      "method": "Five-point finite differences, sparse direct solve (h = 1/160)",
+      "seconds": 0.095
+    },
+    "learned": {
+      "method": "PINN, MLP 4x32 tanh, Adam 1500 + L-BFGS 500, 4000 collocation points, float64",
+      "seconds": 56.733
+    }
+  },
+  "n_parameters": 3297,
+  "stopped_early": false,
+  "final_losses": {
+    "pde": 2.3040814237872367e-05,
+    "boundary": 2.9958507931509333e-07,
+    "total": 2.6036665031023302e-05
+  },
+  "metrics": {
+    "analytical": {
+      "conditions": {
+        "boundary": {
+          "rms": 6.085318869602251e-17,
+          "max": 1.2246467991473532e-16
+        }
+      },
+      "pde_residual": {
+        "rms": 1.0473606771759722e-15,
+        "max": 3.552713678800501e-15
+      }
+    },
+    "numerical": {
+      "conditions": {
+        "boundary": {
+          "rms": 0.0,
+          "max": 0.0
+        }
+      },
+      "error_vs_analytical": {
+        "rel_l2": 3.212823791082127e-05,
+        "rmse": 1.5865796499170996e-05,
+        "max_abs": 3.212823791809427e-05
+      }
+    },
+    "learned": {
+      "pde_residual": {
+        "rms": 0.005190274537101568,
+        "max": 0.0357188997544071
+      },
+      "conditions": {
+        "boundary": {
+          "rms": 0.0005417629654044331,
+          "max": 0.001247558648732161
+        }
+      },
+      "error_vs_numerical": {
+        "rel_l2": 0.000510571063808596,
+        "rmse": 0.0002521419592875083,
+        "max_abs": 0.001247558648732161
+      },
+      "error_vs_analytical": {
+        "rel_l2": 0.0005146721257614528,
+        "rmse": 0.0002541590744501001,
+        "max_abs": 0.001247558648732161
+      }
+    }
+  }
+}

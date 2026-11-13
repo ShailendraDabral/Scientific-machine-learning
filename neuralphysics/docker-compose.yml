@@ -1,0 +1,9 @@
+services:
+  neuralphysics:
+    build: .
+    image: neuralphysics:latest
+    ports:
+      - "8000:8000"
+    environment:
+      NEURALPHYSICS_MAX_RUNS: "2"   # training runs allowed at the same time
+    restart: unless-stopped

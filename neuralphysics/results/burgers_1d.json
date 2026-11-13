@@ -1,0 +1,110 @@
+{
+  "problem": "burgers_1d",
+  "title": "Viscous Burgers equation",
+  "params": {
+    "nu": 0.003183098861837907,
+    "ic_amplitude": 1.0
+  },
+  "config": {
+    "hidden_layers": 6,
+    "neurons": 32,
+    "activation": "tanh",
+    "learning_rate": 0.001,
+    "epochs": 3000,
+    "lbfgs_iterations": 3000,
+    "n_collocation": 10000,
+    "n_boundary": 200,
+    "n_initial": 200,
+    "w_pde": 1.0,
+    "w_boundary": 10.0,
+    "w_initial": 10.0,
+    "lr_decay": 0.9,
+    "seed": 0,
+    "dtype": "float64",
+    "log_every": 25,
+    "snapshot_every": 200
+  },
+  "grid_shape": [
+    257,
+    101
+  ],
+  "solutions": {
+    "analytical": {
+      "method": "Cole-Hopf transform, integrals by trapezoid quadrature (2001 nodes)",
+      "seconds": 1.72
+    },
+    "numerical": {
+      "method": "Fourier pseudo-spectral (2048 modes, 2/3 dealiasing) with ETDRK4, dt = 5e-4",
+      "seconds": 0.377
+    },
+    "learned": {
+      "method": "PINN, MLP 6x32 tanh, Adam 3000 + L-BFGS 3000, 10000 collocation points, float64",
+      "seconds": 518.241
+    }
+  },
+  "n_parameters": 5409,
+  "stopped_early": false,
+  "final_losses": {
+    "pde": 5.854168871681006e-06,
+    "boundary": 5.490820892871286e-09,
+    "initial": 9.817369799429765e-09,
+    "total": 6.007250778604017e-06
+  },
+  "metrics": {
+    "analytical": {
+      "conditions": {
+        "boundary": {
+          "rms": 6.525913259978922e-17,
+          "max": 1.2796686761043516e-16
+        },
+        "initial": {
+          "rms": 9.793967667786749e-18,
+          "max": 1.1102230246251565e-16
+        }
+      }
+    },
+    "numerical": {
+      "conditions": {
+        "boundary": {
+          "rms": 4.8614685264031465e-17,
+          "max": 1.2246467991473532e-16
+        },
+        "initial": {
+          "rms": 1.814793238318228e-17,
+          "max": 2.4492935982947064e-16
+        }
+      },
+      "error_vs_analytical": {
+        "rel_l2": 3.6096906909978765e-10,
+        "rmse": 2.211714573411499e-10,
+        "max_abs": 1.0165466468592399e-08
+      }
+    },
+    "learned": {
+      "pde_residual": {
+        "rms": 0.0032677406551135046,
+        "max": 0.09472523806931177
+      },
+      "conditions": {
+        "boundary": {
+          "rms": 7.652814431376879e-05,
+          "max": 0.00018846594686791618
+        },
+        "initial": {
+          "rms": 0.00011600600189818539,
+          "max": 0.0003331594460393994
+        }
+      },
+      "error_vs_numerical": {
+        "rel_l2": 0.0005631980281265682,
+        "rmse": 0.00034508033877534333,
+        "max_abs": 0.010095173499582685
+      },
+      "error_vs_analytical": {
+        "rel_l2": 0.0005631980266294472,
+        "rmse": 0.00034508033785814407,
+        "max_abs": 0.010095173499582978
+      }
+    }
+  }
+}

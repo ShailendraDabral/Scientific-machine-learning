@@ -1,0 +1,183 @@
+{
+  "settings": {
+    "task": "Periodic viscous Burgers: u0(x) -> u(x, t) on the space-time grid",
+    "reference_solver": "Fourier pseudo-spectral ETDRK4 (4x finer in x, dt <= 1e-3), subsampled",
+    "data": {
+      "n_train": 256,
+      "n_test": 64,
+      "n_ood": 64,
+      "nx": 64,
+      "nt": 32,
+      "nu": 0.03,
+      "t_final": 1.0,
+      "length_scale": 0.1,
+      "ood_length_scale": 0.06,
+      "amplitude": 0.6,
+      "max_mode": 12,
+      "seed": 0
+    },
+    "operators": {
+      "deeponet": {
+        "model": "deeponet",
+        "epochs": 300,
+        "batch_size": 32,
+        "learning_rate": 0.002,
+        "lr_final_fraction": 0.05,
+        "width": 20,
+        "modes_x": 10,
+        "modes_t": 6,
+        "n_layers": 4,
+        "branch_width": 128,
+        "depth": 3,
+        "basis": 64,
+        "w_data": 1.0,
+        "w_pde": 0.05,
+        "w_ic": 5.0,
+        "seed": 0,
+        "snapshot_every": 2,
+        "monitor_index": 0
+      },
+      "fno": {
+        "model": "fno",
+        "epochs": 40,
+        "batch_size": 32,
+        "learning_rate": 0.002,
+        "lr_final_fraction": 0.05,
+        "width": 20,
+        "modes_x": 10,
+        "modes_t": 6,
+        "n_layers": 4,
+        "branch_width": 128,
+        "depth": 3,
+        "basis": 64,
+        "w_data": 1.0,
+        "w_pde": 0.05,
+        "w_ic": 5.0,
+        "seed": 0,
+        "snapshot_every": 2,
+        "monitor_index": 0
+      },
+      "pino": {
+        "model": "pino",
+        "epochs": 40,
+        "batch_size": 32,
+        "learning_rate": 0.002,
+        "lr_final_fraction": 0.05,
+        "width": 20,
+        "modes_x": 10,
+        "modes_t": 6,
+        "n_layers": 4,
+        "branch_width": 128,
+        "depth": 3,
+        "basis": 64,
+        "w_data": 1.0,
+        "w_pde": 0.05,
+        "w_ic": 5.0,
+        "seed": 0,
+        "snapshot_every": 2,
+        "monitor_index": 0
+      }
+    },
+    "pinn": {
+      "hidden_layers": 4,
+      "neurons": 32,
+      "activation": "tanh",
+      "learning_rate": 0.001,
+      "epochs": 1500,
+      "lbfgs_iterations": 300,
+      "n_collocation": 3000,
+      "n_boundary": 0,
+      "n_initial": 256,
+      "w_pde": 1.0,
+      "w_boundary": 10.0,
+      "w_initial": 10.0,
+      "lr_decay": 0.9,
+      "seed": 0,
+      "dtype": "float64",
+      "log_every": 25,
+      "snapshot_every": 1000000000
+    },
+    "pinn_instances": [
+      0,
+      1,
+      2
+    ],
+    "error_metric": "relative L2 over the full (nx, nt) grid against the reference solver",
+    "residual_metric": "RMS of u_t + u u_x - nu u_xx on the grid (spectral in x, 4th-order central differences in t, levels 3..nt-3)",
+    "torch": "2.15.0+cpu",
+    "threads": 2
+  },
+  "reference_residual_rms": 0.005847772967697068,
+  "rows": [
+    {
+      "model": "DeepONet",
+      "kind": "operator",
+      "n_parameters": 91393,
+      "offline_training_seconds": 12.675492108,
+      "test_rel_l2_mean": 0.10292480885982513,
+      "test_rel_l2_std": 0.03667387366294861,
+      "ood_rel_l2_mean": 0.21663300693035126,
+      "same_instances_rel_l2": 0.11936202893654506,
+      "per_instance_rel_l2": [
+        0.16169841587543488,
+        0.07918402552604675,
+        0.11720364540815353
+      ],
+      "seconds_per_new_input": 2.108273437506636e-05,
+      "pde_residual_rms": 0.49032679200172424
+    },
+    {
+      "model": "FNO",
+      "kind": "operator",
+      "n_parameters": 387189,
+      "offline_training_seconds": 35.851436150999994,
+      "test_rel_l2_mean": 0.020690934732556343,
+      "test_rel_l2_std": 0.011738521978259087,
+      "ood_rel_l2_mean": 0.05128966644406319,
+      "same_instances_rel_l2": 0.025477792446811993,
+      "per_instance_rel_l2": [
+        0.03746078163385391,
+        0.017186354845762253,
+        0.021786240860819817
+      ],
+      "seconds_per_new_input": 0.0014712026718750604,
+      "pde_residual_rms": 0.12676101922988892
+    },
+    {
+      "model": "PINO",
+      "kind": "operator",
+      "n_parameters": 387189,
+      "offline_training_seconds": 36.533979744999996,
+      "test_rel_l2_mean": 0.03208445757627487,
+      "test_rel_l2_std": 0.014711382798850536,
+      "ood_rel_l2_mean": 0.06007485091686249,
+      "same_instances_rel_l2": 0.03783928416669369,
+      "per_instance_rel_l2": [
+        0.04569796845316887,
+        0.029517250135540962,
+        0.03830263391137123
+      ],
+      "seconds_per_new_input": 0.001192589390624832,
+      "pde_residual_rms": 0.13746215403079987
+    },
+    {
+      "model": "PINN (per instance)",
+      "kind": "pinn",
+      "n_parameters": 3329,
+      "offline_training_seconds": 0.0,
+      "test_rel_l2_mean": null,
+      "test_rel_l2_std": null,
+      "ood_rel_l2_mean": null,
+      "same_instances_rel_l2": 0.004394306163041592,
+      "per_instance_rel_l2": [
+        0.0035922550586018386,
+        0.0032526338871112174,
+        0.006338029543411721
+      ],
+      "seconds_per_new_input": 21.70889441733333,
+      "pde_residual_rms": 0.017310682955664118
+    }
+  ],
+  "stopped_early": false,
+  "timestamp": "2026-11-13 10:25:32"
+}

@@ -1,0 +1,119 @@
+{
+  "problem": "heat_2d",
+  "title": "2D heat equation",
+  "params": {
+    "alpha": 0.05,
+    "t_final": 1.0,
+    "mode_m": 1,
+    "mode_n": 1,
+    "ic_amplitude": 1.0,
+    "u_boundary": 0.0
+  },
+  "config": {
+    "hidden_layers": 4,
+    "neurons": 48,
+    "activation": "tanh",
+    "learning_rate": 0.001,
+    "epochs": 2000,
+    "lbfgs_iterations": 500,
+    "n_collocation": 8000,
+    "n_boundary": 1600,
+    "n_initial": 800,
+    "w_pde": 1.0,
+    "w_boundary": 10.0,
+    "w_initial": 10.0,
+    "lr_decay": 0.9,
+    "seed": 0,
+    "dtype": "float64",
+    "log_every": 25,
+    "snapshot_every": 200
+  },
+  "grid_shape": [
+    41,
+    41,
+    21
+  ],
+  "solutions": {
+    "analytical": {
+      "method": "Separation of variables (closed form)",
+      "seconds": 0.003
+    },
+    "numerical": {
+      "method": "Crank-Nicolson, five-point Laplacian, sparse LU (h = 1/160, dt = T/200)",
+      "seconds": 0.658
+    },
+    "learned": {
+      "method": "PINN, MLP 4x48 tanh, Adam 2000 + L-BFGS 500, 8000 collocation points, float64",
+      "seconds": 234.051
+    }
+  },
+  "n_parameters": 7297,
+  "stopped_early": false,
+  "final_losses": {
+    "pde": 1.9071694909665273e-05,
+    "boundary": 4.838489754682344e-07,
+    "initial": 2.9110526801065944e-07,
+    "total": 2.6821237344454213e-05
+  },
+  "metrics": {
+    "analytical": {
+      "conditions": {
+        "boundary": {
+          "rms": 4.025117431148395e-17,
+          "max": 1.2246467991473532e-16
+        },
+        "initial": {
+          "rms": 0.0,
+          "max": 0.0
+        }
+      },
+      "pde_residual": {
+        "rms": 4.019626040979967e-17,
+        "max": 2.220446049250313e-16
+      }
+    },
+    "numerical": {
+      "conditions": {
+        "boundary": {
+          "rms": 0.0,
+          "max": 0.0
+        },
+        "initial": {
+          "rms": 1.8891088851416523e-17,
+          "max": 1.2246467991473532e-16
+        }
+      },
+      "error_vs_analytical": {
+        "rel_l2": 1.2753129202432378e-05,
+        "rmse": 4.14021152916963e-06,
+        "max_abs": 1.1071664190343e-05
+      }
+    },
+    "learned": {
+      "pde_residual": {
+        "rms": 0.0052563308276177695,
+        "max": 0.09579152982830022
+      },
+      "conditions": {
+        "boundary": {
+          "rms": 0.0007647728731583885,
+          "max": 0.0048285653066870715
+        },
+        "initial": {
+          "rms": 0.000603482807368942,
+          "max": 0.0048285653066870715
+        }
+      },
+      "error_vs_numerical": {
+        "rel_l2": 0.0013124864234529605,
+        "rmse": 0.00042609345054742397,
+        "max_abs": 0.0048285653066870715
+      },
+      "error_vs_analytical": {
+        "rel_l2": 0.0013120455700559688,
+        "rmse": 0.00042594614307723004,
+        "max_abs": 0.0048285653066870715
+      }
+    }
+  }
+}

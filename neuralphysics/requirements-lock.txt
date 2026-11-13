@@ -1,0 +1,10 @@
+# Exact versions the published results and tests were produced with (Python 3.13, Linux x86-64, CPU).
+# pip install -r requirements-lock.txt --extra-index-url https://download.pytorch.org/whl/cpu
+numpy==2.5.3
+scipy==1.18.1
+torch==2.15.0
+fastapi==0.162.5
+uvicorn[standard]==0.54.0
+pydantic==2.13.5
+pytest==9.1.1
+httpx==0.28.1
