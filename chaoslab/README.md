@@ -1,6 +1,6 @@
 # ChaosLab
 
-An interactive laboratory for chaotic dynamical systems, nonlinear dynamics and numerical integration, running entirely in the browser.
+An interactive laboratory for chaotic dynamical systems, nonlinear dynamics and numerical integration, running entirely in the browser: https://shailendradabral.github.io/Scientific-machine-learning/chaoslab/ . 
 
 ChaosLab is a numerical tool first and a visualisation second. Every curve on screen is produced by a named integrator at a stated step size, from equations you can read in the source, and every model ships with validation tests against analytic or published results.
 
@@ -252,16 +252,6 @@ What the tests check:
 
 **Status at the time of writing:** on 14 November 2026, with Node 22.23 on Linux, `npm ci && npm test && npm run build` completed with 48 of 48 tests passing and a successful production build. The interface was exercised in headless Chromium (every experiment and every system/analysis combination loaded and ran without console errors); those browser checks are not part of `npm test`. The GitHub Actions workflow in this repository has not been run by the authors of this README, since it only runs once the code is pushed to GitHub. Run `npm test` yourself to confirm on your machine.
 
-## Deployment to GitHub Pages
-
-The repository includes `.github/workflows/deploy.yml`, which installs dependencies, runs the tests, builds, and publishes `dist/` to GitHub Pages on every push to `main`.
-
-1. Push the project to a GitHub repository with `main` as the default branch.
-2. In the repository, open **Settings → Pages → Build and deployment** and set **Source** to **GitHub Actions**.
-3. Push a commit, or run the workflow by hand from the **Actions** tab.
-4. The site appears at `https://<your-username>.github.io/<repository-name>/`.
-
-The build uses relative asset paths (`base: './'` in `vite.config.js`), so it works under a repository sub-path or a custom domain without further configuration. Deployment fails if any test fails.
 
 ## Known limitations
 
