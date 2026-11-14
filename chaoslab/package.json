@@ -1,0 +1,24 @@
+{
+  "name": "chaoslab",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "description": "ChaosLab: interactive laboratory for chaotic dynamical systems",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node --test",
+    "docs": "node scripts/build-docs.js"
+  },
+  "dependencies": {
+    "@fontsource/ibm-plex-mono": "^5.3.0",
+    "@fontsource/ibm-plex-sans": "^5.3.0",
+    "katex": "^0.19.1",
+    "plotly.js-dist-min": "^4.3.0",
+    "three": "^0.187.0"
+  },
+  "devDependencies": {
+    "vite": "^8.3.8"
+  }
+}
