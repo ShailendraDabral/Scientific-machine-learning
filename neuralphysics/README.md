@@ -12,7 +12,7 @@ PyTorch.
 
 ## Try it in 10 seconds (no Python)
 
-Open **[`demo/index.html`](demo/index.html)** in a browser.
+Open **[`[demo/index.html](https://shailendradabral.github.io/Scientific-machine-learning/neuralphysics/demo/)`](https://shailendradabral.github.io/Scientific-machine-learning/neuralphysics/demo/)** in a browser.
 
 The demo is one self-contained file. It replays recordings of real training runs for every experiment,
 so play, pause, the training timeline and sample browsing all work, while the settings are fixed. To
